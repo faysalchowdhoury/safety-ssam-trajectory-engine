@@ -1,0 +1,31 @@
+name: baseline_permissive
+description: >
+  No-Build. Two-phase fixed-time operation, C = 100 s. All four left turns are
+  permissive-only and must find gaps in opposing through traffic.
+duration_s: 1200
+warmup_s: 300
+dt_s: 0.1
+approach_speed_mps: 15.6     # 35 mph
+left_turn_speed_mps: 8.5
+
+volumes_vph: {EBT: 550, EBL: 150, WBT: 550, WBL: 150, NBT: 400, NBL: 100, SBT: 400, SBL: 100}
+
+signal:
+  ring1: [[2], [4]]
+  ring2: [[6], [8]]
+  timings:
+    2: {green_s: 44, yellow_s: 4, red_clearance_s: 2}
+    4: {green_s: 44, yellow_s: 4, red_clearance_s: 2}
+    6: {green_s: 44, yellow_s: 4, red_clearance_s: 2}
+    8: {green_s: 44, yellow_s: 4, red_clearance_s: 2}
+
+# NEMA: phi2 EBT, phi6 WBT, phi4 SBT, phi8 NBT. Permissive lefts ride their own through phase.
+control:
+  EBT: {phase: 2, mode: protected}
+  EBL: {phase: 2, mode: permissive}
+  WBT: {phase: 6, mode: protected}
+  WBL: {phase: 6, mode: permissive}
+  SBT: {phase: 4, mode: protected}
+  SBL: {phase: 4, mode: permissive}
+  NBT: {phase: 8, mode: protected}
+  NBL: {phase: 8, mode: permissive}

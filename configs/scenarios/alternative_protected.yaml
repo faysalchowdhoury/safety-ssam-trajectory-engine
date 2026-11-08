@@ -1,0 +1,35 @@
+name: alternative_protected
+description: >
+  Build A. Eight-phase NEMA dual ring with lead-lead protected-only left turns,
+  C = 125 s. Splits sized from simulated saturation flows (through ~1,800 vph,
+  protected left ~1,440 vph) for v/c ~0.8 on the critical lane groups.
+duration_s: 1200
+warmup_s: 300
+dt_s: 0.1
+approach_speed_mps: 15.6
+left_turn_speed_mps: 8.5
+
+volumes_vph: {EBT: 550, EBL: 150, WBT: 550, WBL: 150, NBT: 400, NBL: 100, SBT: 400, SBL: 100}
+
+signal:
+  ring1: [[1, 2], [3, 4]]
+  ring2: [[5, 6], [7, 8]]
+  timings:
+    1: {green_s: 15, yellow_s: 4, red_clearance_s: 1}   # WBL
+    2: {green_s: 44, yellow_s: 4, red_clearance_s: 2}   # EBT
+    5: {green_s: 15, yellow_s: 4, red_clearance_s: 1}   # EBL
+    6: {green_s: 44, yellow_s: 4, red_clearance_s: 2}   # WBT
+    3: {green_s: 11, yellow_s: 4, red_clearance_s: 1}   # NBL
+    4: {green_s: 33, yellow_s: 4, red_clearance_s: 2}   # SBT
+    7: {green_s: 11, yellow_s: 4, red_clearance_s: 1}   # SBL
+    8: {green_s: 33, yellow_s: 4, red_clearance_s: 2}   # NBT
+
+control:
+  EBT: {phase: 2, mode: protected}
+  EBL: {phase: 5, mode: protected}
+  WBT: {phase: 6, mode: protected}
+  WBL: {phase: 1, mode: protected}
+  SBT: {phase: 4, mode: protected}
+  SBL: {phase: 7, mode: protected}
+  NBT: {phase: 8, mode: protected}
+  NBL: {phase: 3, mode: protected}

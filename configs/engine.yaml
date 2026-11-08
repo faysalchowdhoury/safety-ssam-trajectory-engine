@@ -1,0 +1,27 @@
+# Conflict detector configuration. Defaults reproduce FHWA SSAM (FHWA-HRT-08-051).
+units:
+  length: m          # m | ft      (Vissim network length unit)
+  speed: kmh         # kmh | mph | mps | fps
+  acceleration: mps2 # mps2 | fps2
+
+thresholds:
+  max_ttc_s: 1.5
+  max_pet_s: 5.0
+  rear_end_angle_deg: 30.0
+  crossing_angle_deg: 85.0
+  severe_ttc_s: 0.5
+  min_max_speed_mps: 0.0
+
+detector:
+  spatial_backend: kdtree   # kdtree | rtree | grid | brute
+  ttc_resolution_s: 0.05
+  ttc_refine_iterations: 5
+  event_gap_tolerance_s: 0.2
+  default_vehicle_width_m: 1.8
+  mass_model: footprint
+  stationary_speed_mps: 0.1
+  pair_chunk_size: 20000
+  encroachment_buffer_m: 1.0
+  pet_search_padding_s: 1.0
+  path_lateral_tolerance_m: 1.0
+  require_path_verification: true

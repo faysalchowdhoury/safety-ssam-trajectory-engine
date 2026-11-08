@@ -1,0 +1,17 @@
+# No-Build vs. two Build alternatives for left-turn phasing at a four-leg signalized intersection.
+name: left_turn_phasing
+seeds: [11, 23, 37, 41, 59, 67, 73, 89, 97, 101]
+engine_config: engine.yaml
+baseline_id: baseline
+heatmap_cell_m: 2.0
+replication_tolerance: 0.15
+scenarios:
+  - id: baseline
+    label: "No-Build: permissive lefts (C=100 s)"
+    scenario_file: scenarios/baseline_permissive.yaml
+  - id: protected
+    label: "Build A: protected-only lefts (C=125 s)"
+    scenario_file: scenarios/alternative_protected.yaml
+  - id: fya
+    label: "Build B: protected-permissive FYA (C=110 s)"
+    scenario_file: scenarios/alternative_fya.yaml

@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.coverage
+build/
+dist/
+
+# large simulation outputs (regenerate with `ssam-engine study configs/study.yaml`)
+results/*/data/
+data/
+*.fzp
+*.fzp.gz

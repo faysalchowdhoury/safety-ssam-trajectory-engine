@@ -1,0 +1,36 @@
+name: alternative_fya
+description: >
+  Build B. Lead-lead protected-permissive left turns with flashing yellow arrow
+  (MUTCD flashing yellow arrow), C = 110 s. Short protected arrows clear the standing
+  queue; remaining lefts filter through gaps during the adjacent through phase.
+duration_s: 1200
+warmup_s: 300
+dt_s: 0.1
+approach_speed_mps: 15.6
+left_turn_speed_mps: 8.5
+
+volumes_vph: {EBT: 550, EBL: 150, WBT: 550, WBL: 150, NBT: 400, NBL: 100, SBT: 400, SBL: 100}
+
+signal:
+  ring1: [[1, 2], [3, 4]]
+  ring2: [[5, 6], [7, 8]]
+  timings:
+    1: {green_s: 7, yellow_s: 4, red_clearance_s: 1}    # WBL arrow
+    2: {green_s: 44, yellow_s: 4, red_clearance_s: 2}   # EBT (+ WBL FYA)
+    5: {green_s: 7, yellow_s: 4, red_clearance_s: 1}    # EBL arrow
+    6: {green_s: 44, yellow_s: 4, red_clearance_s: 2}   # WBT (+ EBL FYA)
+    3: {green_s: 5, yellow_s: 4, red_clearance_s: 1}    # NBL arrow
+    4: {green_s: 32, yellow_s: 4, red_clearance_s: 2}   # SBT (+ NBL FYA)
+    7: {green_s: 5, yellow_s: 4, red_clearance_s: 1}    # SBL arrow
+    8: {green_s: 32, yellow_s: 4, red_clearance_s: 2}   # NBT (+ SBL FYA)
+
+# The FYA for a left runs with the *concurrent* through phase on the same approach.
+control:
+  EBT: {phase: 2, mode: protected}
+  EBL: {phase: 5, mode: protected_permissive, permissive_phase: 2}
+  WBT: {phase: 6, mode: protected}
+  WBL: {phase: 1, mode: protected_permissive, permissive_phase: 6}
+  SBT: {phase: 4, mode: protected}
+  SBL: {phase: 7, mode: protected_permissive, permissive_phase: 4}
+  NBT: {phase: 8, mode: protected}
+  NBL: {phase: 3, mode: protected_permissive, permissive_phase: 8}

@@ -1,0 +1,26 @@
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      SSAM_REDIS_URL: redis://redis:6379/0
+      SSAM_CACHE_TTL_S: "600"
+      SSAM_MAX_UPLOAD_MB: "1024"
+      SSAM_MAX_RUNS: "16"
+      SSAM_ENGINE_CONFIG: /app/configs/engine.yaml
+      SSAM_LOG_LEVEL: INFO
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--maxmemory", "512mb", "--maxmemory-policy", "allkeys-lru", "--save", ""]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
